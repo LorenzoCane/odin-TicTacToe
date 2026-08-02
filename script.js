@@ -134,8 +134,83 @@ const GameController = (() => {
 DOM control
 */
 
-/*
+
 const DisplayController = (() => {
-    const boardContainer
+    const boardContainer = document.getElementById("board");
+    const display = document.getElementById("status");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const renderBoard = () =>  {
+        boardContainer.innerHTML = "";
+
+        const board = GameBoard.getBoard();
+        board.forEach((marker, index) => {
+            //create cell into the board
+            const cell = document.createElement("button");
+            cell.classList.add("cellBtn");
+            cell.dataset.index = index;
+            cell.textContent = marker;
+
+            if (marker === "X") cell.classList.add("markerX");
+            if (marker === "O") cell.classList.add("markerO");
+
+            cell.addEventListener("click", cellClick);
+            boardContainer.appendChild(cell);
+        });
+    };
+
+    // Status update
+    const updateStatus = (message) =>  {
+        display.textContent = message;
+    };
+
+    // Winning combos 
+    const highlightCombo = (cond) => {
+        const cells = boardContainer.querySelectorAll(".cell");
+        cond.forEach((index) => {
+            cells[index].classList.add("winning");
+        })
+    };
+
+    //Cell selection
+    const cellClick = (e) => {
+        const index = parseInt(e.target.dataset.index);
+        const result = GameController.playRound(index);
+
+        if (!result) return;
+        
+        renderBoard();
+
+        if (result.type === "win") {
+            updateStatus(`${result.player.name} (${result.player.marker}) wins!`);
+            highlightCombo(result.condition);
+
+        } else if (result.type === "tie") {
+            updateStatus("Game Tied!");
+    
+        } else {
+            updateStatus(`${result.nextPlayer.name} (${result.nextPlayer.marker}), is now your turn!`)
+        }
+    };
+
+    // Results
+
+    const handleRestart = () => {
+        GameController.restartGame();
+        renderBoard();
+        updateStatus(`${GameController.getCurrentPlayer().name}'s turn (${GameController.getCurrentPlayer().marker})`);
+
+    };
+
+    // Init Game
+    const init = () => {
+        restartBtn.addEventListener("click", handleRestart);
+        renderBoard();
+        updateStatus(`${GameController.getCurrentPlayer().name}'s turn (${GameController.getCurrentPlayer().marker})`);
+    }
+
+
+    init();
+
+    return { renderBoard, updateStatus};
 })();
-*/
