@@ -166,7 +166,7 @@ const DisplayController = (() => {
 
     // Winning combos 
     const highlightCombo = (cond) => {
-        const cells = boardContainer.querySelectorAll(".cell");
+        const cells = boardContainer.querySelectorAll(".cellBtn");
         cond.forEach((index) => {
             cells[index].classList.add("winning");
         })

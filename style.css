@@ -6,3 +6,158 @@ Lorenzo Cane
 */
 
 @import url(resources/normalize.css);
+
+:root {
+    --primary: #222245;
+    --secondary: #4F038A;
+    --playerX : #2B2BFF;
+    --playerO : #FF7038;
+    --accentX : #4a3dff;
+    --accentO : #ff6a3d;
+    --textC : #E8E8E8;
+    --cellC: #e1c7f7;
+    --win : #8FFF85;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: var(--primary);
+    color: var(--textC);
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+/*
+Container
+*/
+.container {
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: var(--secondary);
+
+    padding: 30px;
+    border: 1px solid var(--textC);
+    border-radius: 20px;
+
+     box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+
+    background: linear-gradient(45deg, var(--playerX), var(--playerO));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 0.75rem;
+}
+
+.status {
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    margin-bottom: 1.5rem;
+
+    color: gainsboro;    
+}
+
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+
+    width: 400px;
+
+    margin-bottom: 2rem;
+}
+
+.board > .cellBtn {
+    aspect-ratio: 1;
+    cursor: pointer;
+
+    background-color: var(--cellC);
+
+    border: 1px solid var(--textC);
+    border-radius: 20px;
+
+    text-align: center;
+    font-weight: 800;
+    font-size: 2.8rem;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.3s ease;
+}
+
+.cellBtn:hover:not(.markerX):not(.markerO){
+    scale: 1.05;
+}
+
+.cellBtn:active:not(.markerX):not(.markerO){
+    transform: scale(0.98);
+}
+
+.cellBtn.markerX{
+    color: var(--accentX);
+    box-shadow: 0 0 20px var(--accentX);
+    border-color: rgba(255, 107, 157, 0.3);
+    animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cellBtn.markerO {
+    color: var(--accentO);
+    box-shadow: 0 0 20px var(--accentO);
+    border-color: rgba(255, 214, 81, 0.3);
+    animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cellBtn.winning {
+    background: rgba(133, 255, 153, 0.212);
+    box-shadow: 0 0 30px var(--win);
+    border-color: var(--win);
+    animation: pulse-win 1s ease-in-out infinite;
+
+}
+
+.restartBtn {
+    padding: 1rem 2rem;
+
+    color: var(--textC);
+    background-color: #e1c7f7;
+    background: linear-gradient(135deg, rgba(247, 141, 220, 0.15), rgba(106, 237, 247, 0.411));
+    
+    border-radius: 15px;
+    border: 1px solid var(--textC);
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.restartBtn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/*
+Footer
+*/
+
+.footer {
+    text-align: center;
+    color: aliceblue;
+
+    text-align: end;
+    padding-top: 5rem;
+}
